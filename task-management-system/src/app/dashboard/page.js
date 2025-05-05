@@ -1,42 +1,73 @@
 "use client";
+
 import { useEffect, useState } from "react";
+import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
-import Navbar from "@/components/Navbar";
 
 export default function DashboardPage() {
-  const { token } = useAuth();
-  const [stats, setStats] = useState({ assigned: 0, created: 0, overdue: 0 });
+  const { user } = useAuth();
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    if (token) {
-      fetch("http://localhost:5000/api/tasks/my-stats", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-        .then((res) => res.json())
-        .then((data) => setStats(data));
+    if (user) {
+      fetchTasks();
     }
-  }, [token]);
+  }, [user]);
+
+  const fetchTasks = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/tasks", {
+        withCredentials: true,
+      });
+      setTasks(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const today = new Date().toISOString().slice(0, 10);
+
+  const myAssignedTasks = tasks.filter((t) => t.assignedTo === user?.id);
+  const myCreatedTasks = tasks.filter((t) => t.createdBy === user?.id);
+  const overdueTasks = tasks.filter((t) => t.dueDate.slice(0, 10) < today && t.status !== "done");
 
   return (
-    <>
-      <Navbar />
-      <div className="p-6">
-        <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <StatCard title="Tasks Assigned To You" count={stats.assigned} />
-          <StatCard title="Tasks You Created" count={stats.created} />
-          <StatCard title="Overdue Tasks" count={stats.overdue} />
-        </div>
+    <div className="p-6">
+      <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
+
+      {/* Overdue Tasks */}
+      <div className="mb-6">
+        <h3 className="text-xl font-semibold text-red-600 mb-2">Overdue Tasks</h3>
+        {overdueTasks.length === 0 ? (
+          <p>No overdue tasks! 🎉</p>
+        ) : (
+          overdueTasks.map((t) => (
+            <div key={t._id} className="border p-2 rounded bg-red-100 mb-2">
+              {t.title} (Due: {new Date(t.dueDate).toLocaleDateString()})
+            </div>
+          ))
+        )}
       </div>
-    </>
-  );
-}
 
-function StatCard({ title, count }) {
-  return (
-    <div className="bg-white p-6 rounded shadow text-center">
-      <h2 className="text-lg font-semibold mb-2">{title}</h2>
-      <p className="text-2xl font-bold text-blue-600">{count}</p>
+      {/* My Assigned Tasks */}
+      <div className="mb-6">
+        <h3 className="text-xl font-semibold">Tasks Assigned to Me</h3>
+        {myAssignedTasks.map((t) => (
+          <div key={t._id} className="border p-2 rounded bg-green-100 mb-2">
+            {t.title}
+          </div>
+        ))}
+      </div>
+
+      {/* My Created Tasks */}
+      <div>
+        <h3 className="text-xl font-semibold">Tasks I Created</h3>
+        {myCreatedTasks.map((t) => (
+          <div key={t._id} className="border p-2 rounded bg-blue-100 mb-2">
+            {t.title}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

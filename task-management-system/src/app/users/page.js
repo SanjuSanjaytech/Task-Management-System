@@ -30,4 +30,13 @@ export default function UsersPage() {
       <h2 className="text-2xl font-bold mb-4">Team Members</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {users.map((u) => (
-          <div key={u._id} class_
+          <div key={u._id} className="border p-4 rounded shadow bg-white">
+            <h3 className="font-semibold">{u.name}</h3>
+            <p>Email: {u.email}</p>
+            <p>Role: {u.role}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

@@ -10,6 +10,7 @@ export default function Layout({ children }) {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Redirect unauthenticated users to login
   useEffect(() => {
     if (!user && router.pathname !== '/login' && router.pathname !== '/register') {
       router.push('/login');
@@ -29,6 +30,7 @@ export default function Layout({ children }) {
 
   return (
     <div className="min-h-screen bg-gray-100">
+      {/* Fixed navbar with modern styling */}
       <nav className="fixed top-0 left-0 right-0 bg-white shadow-lg z-50">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           {/* Logo */}

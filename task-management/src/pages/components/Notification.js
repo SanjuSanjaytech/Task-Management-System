@@ -1,4 +1,4 @@
-
+// Placeholder for notifications (can be enhanced with WebSockets)
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 

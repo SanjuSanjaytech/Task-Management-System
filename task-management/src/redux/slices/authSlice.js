@@ -2,29 +2,26 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { login as loginApi, register as registerApi } from '../../utils/api';
 
 export const login = createAsyncThunk('auth/login', async ({ email, password }, { rejectWithValue }) => {
-  console.log('Login payload:', { email, password }); // Debug payload
+  console.log('Login payload:', { email, password });
   try {
     const response = await loginApi({ email, password });
     return response.data;
   } catch (error) {
-    console.error('Login error:', error.response?.data, error.message); // Debug error
+    console.error('Login error:', error.response?.data, error.message);
     return rejectWithValue(error.response?.data?.message || 'Login failed');
   }
 });
 
-export const register = createAsyncThunk(
-  'auth/register',
-  async ({ name, email, password }, { rejectWithValue }) => {
-    console.log('Register payload:', { name, email, password }); // Debug payload
-    try {
-      const response = await registerApi({ name, email, password });
-      return response.data;
-    } catch (error) {
-      console.error('Register error:', error.response?.data, error.message); // Debug error
-      return rejectWithValue(error.response?.data?.message || 'Registration failed');
-    }
+export const register = createAsyncThunk('auth/register', async ({ name, email, password }, { rejectWithValue }) => {
+  console.log('Register payload:', { name, email, password });
+  try {
+    const response = await registerApi({ name, email, password });
+    return response.data;
+  } catch (error) {
+    console.error('Register error:', error.response?.data, error.message);
+    return rejectWithValue(error.response?.data?.message || 'Registration failed');
   }
-);
+});
 
 const authSlice = createSlice({
   name: 'auth',
@@ -39,6 +36,8 @@ const authSlice = createSlice({
       state.user = null;
       state.token = null;
       localStorage.removeItem('token');
+      localStorage.removeItem('expiryTime');
+      localStorage.removeItem('user');
     },
     setUser: (state, action) => {
       state.user = action.payload.user;
@@ -54,9 +53,11 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
         state.token = action.payload.token;
-        state.user = { name: 'User', email: action.meta.arg.email }; // Backend doesn't return user data
+        state.user = { name: 'User', email: action.meta.arg.email };
         localStorage.setItem('token', action.payload.token);
-        console.log('Token stored:', action.payload.token); // Debug token
+        localStorage.setItem('user', JSON.stringify({ name: 'User', email: action.meta.arg.email }));
+        localStorage.setItem('expiryTime', Date.now() + 60 * 60 * 1000);
+        console.log('Token stored:', action.payload.token);
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
@@ -71,7 +72,9 @@ const authSlice = createSlice({
         state.token = action.payload.token;
         state.user = { name: action.meta.arg.name, email: action.meta.arg.email };
         localStorage.setItem('token', action.payload.token);
-        console.log('Token stored:', action.payload.token); // Debug token
+        localStorage.setItem('user', JSON.stringify({ name: action.meta.arg.name, email: action.meta.arg.email }));
+        localStorage.setItem('expiryTime', Date.now() + 60 * 60 * 1000);
+        console.log('Token stored:', action.payload.token);
       })
       .addCase(register.rejected, (state, action) => {
         state.loading = false;

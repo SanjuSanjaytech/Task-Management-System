@@ -18,7 +18,7 @@ export default function Login() {
       await dispatch(login({ email, password })).unwrap();
       router.push('/dashboard');
     } catch (error) {
-      console.error('Login attempt failed:', error); // Debug error
+      console.error('Login attempt failed:', error);
       toast.error(error || 'Login failed');
     }
   };
@@ -29,7 +29,7 @@ export default function Login() {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
         <h1 className="text-2xl font-bold mb-6">Login</h1>
-        {error && <p className="text-red-500 mb-4">{error}</p>} {/* Display specific error */}
+        {error && <p className="text-red-500 mb-4">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-medium">Email</label>

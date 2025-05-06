@@ -151,7 +151,7 @@ Troubleshooting
 
 MongoDB Errors: Ensure MongoDB is running or check MONGO_URI in backend/.env.
 API Issues: Verify backend is running (http://localhost:5000) and NEXT_PUBLIC_API_URL is correct in task-management/.env.local.
-Styling Problems: Check tailwind.config.js and globals.css in task-management/.
+Styling Problems: Check globals.css in task-management/.
 Auth Issues: Clear localStorage (localStorage.removeItem('token')) and re-login.
 
 For support, open an issue on the GitHub repository.

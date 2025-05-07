@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'; // Added useEffect to handle redirect after rendering
+import { useState, useEffect } from 'react';  
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../redux/slices/authSlice';
@@ -13,7 +13,6 @@ export default function Login() {
   const { loading, user, error } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    // If user is already logged in, redirect to the dashboard
     if (user) {
       router.push('/dashboard');
     }

@@ -37,13 +37,13 @@ Toast notifications for success/errors & loading spinners.
 🛠️ Tech Stack
 Frontend (task-management/)
 
-Next.js — React framework with SSR & Routing
-Redux Toolkit — State management
-Tailwind CSS — Modern utility-first styling
-Axios — HTTP client
-React Toastify — Elegant notifications
-Backend (backend/)
-Node.js & Express — REST API server
+- Next.js — React framework with SSR & Routing
+- Redux Toolkit — State management
+- Tailwind CSS — Modern utility-first styling
+- Axios — HTTP client
+- React Toastify — Elegant notifications
+- Backend (backend/)
+- Node.js & Express — REST API server
 
 MongoDB & Mongoose — NoSQL database
 
@@ -55,7 +55,10 @@ Bcrypt — Secure password hashing
 Task-Management-System/
 ├── backend/           # Node.js / Express backend
 └── task-management/   # Next.js frontend
+
+
 🚀 Getting Started
+
 ✅ Prerequisites
 Node.js (v16 or higher)
 
@@ -65,6 +68,7 @@ Git
 
 🔥 Setup Instructions
 1. Clone the Repository
+   
 git clone https://github.com/SanjuSanjaytech/Task-Management-System.git
 cd Task-Management-System
 
@@ -80,32 +84,19 @@ PORT=5000
 🔄 Replace MONGO_URI and JWT_SECRET with your actual values.
 
 Run the backend:
-
-bash
-Copy
-Edit
 npm run dev
 Server ➡️ http://localhost:5000
 
 Check terminal for "MongoDB connected" message.
 
 3. Frontend Setup (/task-management)
-bash
-Copy
-Edit
 cd ../task-management
 npm install
 Create a .env.local file inside /task-management:
 
-ini
-Copy
-Edit
 NEXT_PUBLIC_API_URL=http://localhost:5000
 Run the frontend:
 
-bash
-Copy
-Edit
 npm run dev
 App ➡️ http://localhost:3000
 
@@ -119,24 +110,21 @@ Feature	URL
 📱 Mobile Test: Resize browser or open DevTools → Mobile View.
 
 🎯 Design Decisions
-Separation of Concerns: Cleanly divided frontend & backend.
 
-Tailwind CSS: For fast, responsive, and consistent UI.
-
-Redux Toolkit: Simplifies async actions & state management.
-
-Modular Components: Reusable UI blocks (e.g., TaskForm, TaskList, SearchBar).
+- Separation of Concerns: Cleanly divided frontend & backend.
+- Tailwind CSS: For fast, responsive, and consistent UI.
+- Redux Toolkit: Simplifies async actions & state management.
+- Modular Components: Reusable UI blocks (e.g., TaskForm, TaskList, SearchBar).
 
 ⚠️ Assumptions & Trade-offs
-JWT in LocalStorage: Simpler but less secure (vs. HTTP-only cookies).
 
-No Real-Time Updates: Uses API polling; avoids WebSocket complexity.
-
-Basic Validation: Only essential field checks.
-
-No Automated Tests: Focused on core functionality (assignment scope).
+- JWT in LocalStorage: Simpler but less secure (vs. HTTP-only cookies).
+- No Real-Time Updates: Uses API polling; avoids WebSocket complexity.
+- Basic Validation: Only essential field checks.
+- No Automated Tests: Focused on core functionality (assignment scope).
 
 🐛 Troubleshooting
+
 Issue	Fix
 ❌ MongoDB not connecting	Check MONGO_URI & ensure MongoDB is running.
 ❌ API 404/500 errors	Ensure backend is running at localhost:5000.
@@ -147,15 +135,14 @@ js
 Copy
 Edit
 localStorage.removeItem('token');
+
+
 📚 Future Improvements
+
 ✅ Role-based access (Admin/User)
-
 ✅ Real-time updates (WebSockets)
-
 ✅ Advanced validation (Yup/Zod)
-
 ✅ Unit & Integration Tests (Jest/Testing Library)
-
 ✅ Dark Mode toggle
 
 🤝 Contributing

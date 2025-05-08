@@ -315,8 +315,8 @@ export default function Tasks() {
                     onAssign={handleAssign}
                   />
                 )}
-              </div>
-            </div>
+              </div>  
+            </div>  
           </div>
         </div>
       </div>

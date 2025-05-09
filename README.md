@@ -3,7 +3,6 @@
 
 A full-stack web application to manage tasks efficiently. Built with a Next.js frontend and Node.js/Express backend, using MongoDB for data storage. It features user authentication, task CRUD operations, assignment, filtering, and dashboard analytics — all wrapped in a modern and responsive UI styled with Tailwind CSS.
 
-🔗 Live Demo (Optional if Deployed)
 📂 Frontend: /task-management | Backend: /backend
 
 🌟 Features

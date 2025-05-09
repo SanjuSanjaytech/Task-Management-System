@@ -15,7 +15,6 @@ export default function Login() {
   const router = useRouter();
   const { loading, user, error } = useSelector((state) => state.auth);
 
-  // Grid animation
   const [grid, setGrid] = useState([]);
   const containerRef = useRef(null);
 
@@ -24,7 +23,6 @@ export default function Login() {
       router.push('/dashboard');
     }
 
-    // Initialize grid animation
     const createGrid = () => {
       const columns = Math.floor(window.innerWidth / 50);
       const rows = Math.floor(window.innerHeight / 50);

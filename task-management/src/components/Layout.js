@@ -97,9 +97,6 @@ export default function Layout({ children }) {
                 <NavLink href="/tasks" currentPath={router.pathname}>
                   Tasks
                 </NavLink>
-                <NavLink href="/team" currentPath={router.pathname}>
-                  Team
-                </NavLink>
               </div>
             </div>
 
@@ -116,61 +113,6 @@ export default function Layout({ children }) {
                 <FiPlus className="w-5 h-5" />
               </motion.button>
 
-              {/* Notifications
-              <div className="relative" ref={notificationsRef}>
-                <button
-                  onClick={toggleNotifications}
-                  className="p-2 rounded-full text-gray-500 hover:text-gray-700 hover:bg-gray-100 relative"
-                  aria-label="Notifications"
-                >
-                  <FiBell className="w-5 h-5" />
-                  {unreadCount > 0 && (
-                    <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                      {unreadCount}
-                    </span>
-                  )}
-                </button>
-
-                <AnimatePresence>
-                  {isNotificationsOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute right-0 mt-2 w-72 bg-white rounded-md shadow-lg overflow-hidden z-50 border border-gray-200"
-                    >
-                      <div className="px-4 py-2 border-b border-gray-200 bg-gray-50">
-                        <h3 className="text-sm font-medium text-gray-700">Notifications</h3>
-                      </div>
-                      <div className="max-h-60 overflow-y-auto">
-                        {notifications.length > 0 ? (
-                          notifications.map((notification) => (
-                            <div
-                              key={notification.id}
-                              className={`px-4 py-3 hover:bg-gray-50 cursor-pointer ${!notification.read ? 'bg-blue-50' : ''}`}
-                            >
-                              <p className="text-sm text-gray-700">{notification.text}</p>
-                              <p className="text-xs text-gray-500 mt-1">
-                                {new Date().toLocaleTimeString()}
-                              </p>
-                            </div>
-                          ))
-                        ) : (
-                          <div className="px-4 py-3 text-center text-sm text-gray-500">
-                            No new notifications
-                          </div>
-                        )}
-                      </div>
-                      <div className="px-4 py-2 border-t border-gray-200 bg-gray-50 text-center">
-                        <button className="text-sm text-blue-600 hover:text-blue-800">
-                          Mark all as read
-                        </button>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div> */}
 
               {/* Profile dropdown */}
               <div className="relative" ref={profileRef}>
@@ -250,9 +192,6 @@ export default function Layout({ children }) {
                 </MobileNavLink>
                 <MobileNavLink href="/tasks" currentPath={router.pathname} onClick={toggleMenu}>
                   Tasks
-                </MobileNavLink>
-                <MobileNavLink href="/team" currentPath={router.pathname} onClick={toggleMenu}>
-                  Team
                 </MobileNavLink>
                 <MobileNavLink href="/profile" currentPath={router.pathname} onClick={toggleMenu}>
                   Profile

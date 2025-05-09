@@ -5,7 +5,7 @@ export const login = createAsyncThunk('auth/login', async ({ email, password }, 
   console.log('Login payload:', { email, password });
   try {
     const response = await loginApi({ email, password });
-    return response.data;
+    return response.data; // Assuming response.data contains the user and token
   } catch (error) {
     console.error('Login error:', error.response?.data, error.message);
     return rejectWithValue(error.response?.data?.message || 'Login failed');
@@ -16,7 +16,7 @@ export const register = createAsyncThunk('auth/register', async ({ name, email, 
   console.log('Register payload:', { name, email, password });
   try {
     const response = await registerApi({ name, email, password });
-    return response.data;
+    return response.data; // Assuming response.data contains the user and token
   } catch (error) {
     console.error('Register error:', error.response?.data, error.message);
     return rejectWithValue(error.response?.data?.message || 'Registration failed');
@@ -53,10 +53,10 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
         state.token = action.payload.token;
-        state.user = { name: 'User', email: action.meta.arg.email };
+        state.user = action.payload.user; // Populate the user from the API response
         localStorage.setItem('token', action.payload.token);
-        localStorage.setItem('user', JSON.stringify({ name: 'User', email: action.meta.arg.email }));
-        localStorage.setItem('expiryTime', Date.now() + 60 * 60 * 1000);
+        localStorage.setItem('user', JSON.stringify(action.payload.user)); // Store the actual user object
+        localStorage.setItem('expiryTime', Date.now() + 60 * 60 * 1000); // Set token expiry (1 hour)
         console.log('Token stored:', action.payload.token);
       })
       .addCase(login.rejected, (state, action) => {
@@ -70,10 +70,10 @@ const authSlice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.loading = false;
         state.token = action.payload.token;
-        state.user = { name: action.meta.arg.name, email: action.meta.arg.email };
+        state.user = action.payload.user; // Populate the user from the API response
         localStorage.setItem('token', action.payload.token);
-        localStorage.setItem('user', JSON.stringify({ name: action.meta.arg.name, email: action.meta.arg.email }));
-        localStorage.setItem('expiryTime', Date.now() + 60 * 60 * 1000);
+        localStorage.setItem('user', JSON.stringify(action.payload.user)); // Store the actual user object
+        localStorage.setItem('expiryTime', Date.now() + 60 * 60 * 1000); // Set token expiry (1 hour)
         console.log('Token stored:', action.payload.token);
       })
       .addCase(register.rejected, (state, action) => {

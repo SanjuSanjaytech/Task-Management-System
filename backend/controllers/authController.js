@@ -12,11 +12,21 @@ exports.register = async (req, res) => {
         const user = await User.create({ name, email, password: hashedPassword });
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.status(201).json({ token });
+        
+        // Returning both user and token
+        res.status(201).json({
+            token,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+            },
+        });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 };
+
 
 exports.login = async (req, res) => {
     const { email, password } = req.body;
@@ -28,7 +38,16 @@ exports.login = async (req, res) => {
         if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.json({ token });
+        
+        // Returning both user and token
+        res.json({
+            token,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+            },
+        });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }

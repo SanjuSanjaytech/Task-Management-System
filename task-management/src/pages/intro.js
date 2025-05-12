@@ -225,7 +225,7 @@ const IntroPage = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <p className="text-gray-700 italic">"{productivityTips[currentTip]}"</p>
+          <p className="text-gray-700 italic">&quot;{productivityTips[currentTip]}&quot;</p>
         </motion.div>
       </motion.div>
 

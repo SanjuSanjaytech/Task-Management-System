@@ -5,7 +5,6 @@ import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import * as THREE from 'three';
 
-// Demo tasks for globe and dashboard
 const demoTasks = [
   { id: 1, title: 'Project Kickoff', category: 'Planning', date: '2025-05-08', status: 'Scheduled', lat: 20, lon: 30 },
   { id: 2, title: 'Design Review', category: 'Design', date: '2025-05-10', status: 'In Progress', lat: -10, lon: 100 },
@@ -13,7 +12,6 @@ const demoTasks = [
   { id: 4, title: 'Testing Phase', category: 'Testing', date: '2025-05-15', status: 'Pending', lat: -30, lon: -120 },
 ];
 
-// Productivity tips
 const productivityTips = [
   'Chunk tasks into 25-minute focus sessions.',
   'Prioritize high-impact tasks early in the day.',
@@ -33,7 +31,7 @@ const IntroPage = () => {
   const canvasRef = useRef(null);
   const globeRef = useRef(null);
 
-  // Cycle through productivity tips
+
   useEffect(() => {
     const tipInterval = setInterval(() => {
       setCurrentTip((prev) => (prev + 1) % productivityTips.length);
@@ -41,7 +39,6 @@ const IntroPage = () => {
     return () => clearInterval(tipInterval);
   }, []);
 
-  // Filter tasks based on category and search
   useEffect(() => {
     let tasks = demoTasks;
     if (selectedCategory !== 'All') {
@@ -55,7 +52,6 @@ const IntroPage = () => {
     setFilteredTasks(tasks);
   }, [selectedCategory, searchQuery]);
 
-  // Particle system with connectivity
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');

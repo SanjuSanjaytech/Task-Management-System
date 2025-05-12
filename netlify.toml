@@ -1,0 +1,9 @@
+[build]
+  base = "/"  # This is where Netlify will look for the app; the root directory is fine.
+  publish = "out"  # This is where the build output from Next.js will go. Make sure it's 'out' if you're using `next export`.
+  command = "npm run build && next export"  # Ensure you run the export after the build.
+
+[[redirects]]
+  from = "/intro"
+  to = "/intro"
+  status = 200

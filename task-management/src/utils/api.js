@@ -4,7 +4,7 @@ const baseURL = process.env.NEXT_PUBLIC_API_URL;
 if (!baseURL) {
   throw new Error('NEXT_PUBLIC_API_URL is not defined!');
 }
-console.log('API Base URL configured:', baseURL);
+
 
 const api = axios.create({
   baseURL,
@@ -15,17 +15,14 @@ api.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
-  console.log('API Request:', config.method.toUpperCase(), config.url, config.data || '');
   return config;
 });
 
 api.interceptors.response.use(
   (response) => {
-    console.log('API Response:', response.status, response.data);
     return response;
   },
   (error) => {
-    console.error('API Error:', error.response?.status, error.response?.data || error.message);
     return Promise.reject(error);
   }
 );

@@ -2,23 +2,19 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { login as loginApi, register as registerApi } from '../../utils/api';
 
 export const login = createAsyncThunk('auth/login', async ({ email, password }, { rejectWithValue }) => {
-  console.log('Login payload:', { email, password });
   try {
     const response = await loginApi({ email, password });
-    return response.data; // Assuming response.data contains the user and token
+    return response.data;
   } catch (error) {
-    console.error('Login error:', error.response?.data, error.message);
     return rejectWithValue(error.response?.data?.message || 'Login failed');
   }
 });
 
 export const register = createAsyncThunk('auth/register', async ({ name, email, password }, { rejectWithValue }) => {
-  console.log('Register payload:', { name, email, password });
   try {
     const response = await registerApi({ name, email, password });
-    return response.data; // Assuming response.data contains the user and token
+    return response.data;
   } catch (error) {
-    console.error('Register error:', error.response?.data, error.message);
     return rejectWithValue(error.response?.data?.message || 'Registration failed');
   }
 });
@@ -53,11 +49,10 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
         state.token = action.payload.token;
-        state.user = action.payload.user; // Populate the user from the API response
+        state.user = action.payload.user;
         localStorage.setItem('token', action.payload.token);
-        localStorage.setItem('user', JSON.stringify(action.payload.user)); // Store the actual user object
-        localStorage.setItem('expiryTime', Date.now() + 60 * 60 * 1000); // Set token expiry (1 hour)
-        console.log('Token stored:', action.payload.token);
+        localStorage.setItem('user', JSON.stringify(action.payload.user));
+        localStorage.setItem('expiryTime', Date.now() + 60 * 60 * 1000);
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
@@ -70,11 +65,10 @@ const authSlice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.loading = false;
         state.token = action.payload.token;
-        state.user = action.payload.user; // Populate the user from the API response
+        state.user = action.payload.user; 
         localStorage.setItem('token', action.payload.token);
-        localStorage.setItem('user', JSON.stringify(action.payload.user)); // Store the actual user object
-        localStorage.setItem('expiryTime', Date.now() + 60 * 60 * 1000); // Set token expiry (1 hour)
-        console.log('Token stored:', action.payload.token);
+        localStorage.setItem('user', JSON.stringify(action.payload.user));
+        localStorage.setItem('expiryTime', Date.now() + 60 * 60 * 1000); 
       })
       .addCase(register.rejected, (state, action) => {
         state.loading = false;

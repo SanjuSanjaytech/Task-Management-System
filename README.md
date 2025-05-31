@@ -1,4 +1,4 @@
-🚀 Task Management System
+🚀 Task Manager App
 
 
 A full-stack web application to manage tasks efficiently. Built with a Next.js frontend and Node.js/Express backend, using MongoDB for data storage. It features user authentication, task CRUD operations, assignment, filtering, and dashboard analytics — all wrapped in a modern and responsive UI styled with Tailwind CSS.
@@ -11,27 +11,25 @@ Register, login, and secure routes using JWT.
 
 ✅ Task Management (CRUD)
 Create, update, delete, and read tasks with:
-
 Status: To Do, In Progress, Completed
-
 Priority: Low, Medium, High
-
 Due Date & Description
 
-👥 Task Assignment
-Assign tasks to registered users.
 
-🔎 Search & Filter
-Filter tasks by status, priority, and due date.
+- 👥 Task Assignment
+   Assign tasks to registered users.
 
-📊 Dashboard Metrics
-View metrics: assigned tasks, created tasks, overdue tasks.
+- 🔎 Search & Filter
+  Filter tasks by status, priority, and due date.
 
-📱 Responsive UI
-Mobile-friendly design with a fixed navbar and smooth layouts.
+- 📊 Dashboard Metrics
+  View metrics: assigned tasks, created tasks, overdue tasks.
 
-⚠️ Error Handling & Feedback
-Toast notifications for success/errors & loading spinners.
+- 📱 Responsive UI
+  Mobile-friendly design with a fixed navbar and smooth layouts.
+
+- ⚠️ Error Handling & Feedback
+  Toast notifications for success/errors & loading spinners.
 
 🛠️ Tech Stack
 Frontend (task-management/)
@@ -45,66 +43,58 @@ Frontend (task-management/)
 - Node.js & Express — REST API server
 
 MongoDB & Mongoose — NoSQL database
-
 JWT — Authentication tokens
-
 Bcrypt — Secure password hashing
 
 📂 Repository Structure
-Task-Management-System/
-├── backend/           # Node.js / Express backend
-└── task-management/   # Next.js frontend
+   Task-Management-System/
+  -  ├── backend/           # Node.js / Express backend
+  -  └── task-management/   # Next.js frontend
 
 
 🚀 Getting Started
 
 ✅ Prerequisites
-Node.js (v16 or higher)
+   - Node.js (v16 or higher)
+   - MongoDB (Local or Atlas)
 
-MongoDB (Local or Atlas)
-
-Git
-
+- Git
 🔥 Setup Instructions
 1. Clone the Repository
-   
-git clone https://github.com/SanjuSanjaytech/Task-Management-System.git
-cd Task-Management-System
+   git clone https://github.com/SanjuSanjaytech/Task-Management-System.git
+   cd Task-Management-System
 
-
-3. Backend Setup (/backend)
-cd backend
-npm install
-Create a .env file inside /backend:
-
-MONGO_URI=mongodb://localhost:27017/task-manager
-JWT_SECRET=your_jwt_secret
-PORT=5000
-🔄 Replace MONGO_URI and JWT_SECRET with your actual values.
-
-Run the backend:
-npm run dev
-Server ➡️ http://localhost:5000
-
-Check terminal for "MongoDB connected" message.
+2. Backend Setup (/backend)
+   cd backend
+   npm install
+   Create a .env file inside /backend:
+   MONGO_URI=mongodb://localhost:27017/task-manager
+   JWT_SECRET=your_jwt_secret
+   PORT=5000
+   🔄 Replace MONGO_URI and JWT_SECRET with your actual values.
+   Run the backend:
+   npm run dev
+   Server ➡️ http://localhost:5000
+   Check terminal for "MongoDB connected" message.
 
 3. Frontend Setup (/task-management)
-cd ../task-management
-npm install
-Create a .env.local file inside /task-management:
+   cd ../task-management
+   npm install
+   Create a .env.local file inside /task-management:
 
-NEXT_PUBLIC_API_URL=http://localhost:5000
-Run the frontend:
+   NEXT_PUBLIC_API_URL=http://localhost:5000
+   Run the frontend:
 
-npm run dev
-App ➡️ http://localhost:3000
+   npm run dev
+   App ➡️ http://localhost:3000
 
 🧪 Testing the Application
+
 Feature	URL
-🔐 Register	/register → http://localhost:3000/register
-🔐 Login	/login → http://localhost:3000/login
-📊 Dashboard	/dashboard → http://localhost:3000/dashboard
-📋 Tasks	/tasks → http://localhost:3000/tasks
+- 🔐 Register	/register → http://localhost:3000/register
+- 🔐 Login	/login → http://localhost:3000/login
+- 📊 Dashboard	/dashboard → http://localhost:3000/dashboard
+- 📋 Tasks	/tasks → http://localhost:3000/tasks
 
 📱 Mobile Test: Resize browser or open DevTools → Mobile View.
 
@@ -124,33 +114,30 @@ Feature	URL
 
 🐛 Troubleshooting
 
-Issue	Fix
-❌ MongoDB not connecting	Check MONGO_URI & ensure MongoDB is running.
-❌ API 404/500 errors	Ensure backend is running at localhost:5000.
-❌ Styling broken	Verify Tailwind setup in globals.css.
-❌ Auth not working	Clear localStorage and re-login.
+Issue	Fix:
 
-js
-Copy
-Edit
-localStorage.removeItem('token');
+- ❌ MongoDB not connecting	Check MONGO_URI & ensure MongoDB is running.
+- ❌ API 404/500 errors	Ensure backend is running at localhost:5000.
+- ❌ Styling broken	Verify Tailwind setup in globals.css.
+- ❌ Auth not working	Clear localStorage and re-login.
+
 
 
 📚 Future Improvements
 
-✅ Role-based access (Admin/User)
-✅ Real-time updates (WebSockets)
-✅ Advanced validation (Yup/Zod)
-✅ Unit & Integration Tests (Jest/Testing Library)
-✅ Dark Mode toggle
+- ✅ Role-based access (Admin/User)
+- ✅ Real-time updates (WebSockets)
+- ✅ Advanced validation (Yup/Zod)
+- ✅ Unit & Integration Tests (Jest/Testing Library)
+- ✅ Dark Mode toggle
 
 🤝 Contributing
 
-Fork this repo
-Create your feature branch (git checkout -b feat/my-feature)
-Commit your changes (git commit -m "Add my feature")
-Push to the branch (git push origin feat/my-feature)
-Open a Pull Request
+- Fork this repo
+- Create your feature branch (git checkout -b feat/my-feature)
+- Commit your changes (git commit -m "Add my feature")
+- Push to the branch (git push origin feat/my-feature)
+- Open a Pull Request
 
 📄 License
 This project is open-source. Feel free to fork and modify!

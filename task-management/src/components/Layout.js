@@ -16,7 +16,6 @@ export default function Layout({ children }) {
   const profileRef = useRef(null);
   const notificationsRef = useRef(null);
 
-  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (profileRef.current && !profileRef.current.contains(event.target)) {
@@ -60,7 +59,7 @@ export default function Layout({ children }) {
 
   if (!user) return <div className="text-center text-gray-500">Loading...</div>;
 
-  // Mock notifications data
+ 
   const notifications = [
     { id: 1, text: 'Task "Design Review" is due tomorrow', read: false },
     { id: 2, text: 'You have 3 incomplete tasks', read: true },

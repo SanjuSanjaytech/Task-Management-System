@@ -139,8 +139,16 @@ Issue	Fix:
 - Push to the branch (git push origin feat/my-feature)
 - Open a Pull Request
 
-📄 License
-This project is open-source. Feel free to fork and modify!
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](./LICENSE). Feel free to fork, modify, and use it freely!
+
+## 👨‍💻 Author
+
+Sanjay — [GitHub Profile](https://github.com/your-username)
+
 
 👨‍💻 Author
 Sanjay — GitHub

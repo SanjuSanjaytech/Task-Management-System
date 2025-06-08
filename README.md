@@ -147,7 +147,7 @@ This project is licensed under the [MIT License](./LICENSE). Feel free to fork, 
 
 ## 👨‍💻 Author
 
-Sanjay — [GitHub Profile](https://github.com/your-username)
+Sanjay — [GitHub Profile](https://github.com/SanjuSanjaytech)
 
 
 👨‍💻 Author

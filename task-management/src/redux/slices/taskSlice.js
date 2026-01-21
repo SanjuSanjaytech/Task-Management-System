@@ -8,6 +8,7 @@ import {
   getDashboard as apiGetDashboard,
 } from '../../utils/api';
 
+// --- Async Thunks ---
 export const fetchTasks = createAsyncThunk(
   'tasks/fetchTasks',
   async (filters = {}, { rejectWithValue }) => {
@@ -20,14 +21,17 @@ export const fetchTasks = createAsyncThunk(
   }
 );
 
-export const createTask = createAsyncThunk('tasks/createTask', async (task, { rejectWithValue }) => {
-  try {
-    const response = await apiCreateTask(task);
-    return response.data;
-  } catch (error) {
-    return rejectWithValue(error.response?.data || { message: 'Failed to create task' });
+export const createTask = createAsyncThunk(
+  'tasks/createTask',
+  async (task, { rejectWithValue }) => {
+    try {
+      const response = await apiCreateTask(task);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || { message: 'Failed to create task' });
+    }
   }
-});
+);
 
 export const updateTask = createAsyncThunk(
   'tasks/updateTask',
@@ -41,14 +45,17 @@ export const updateTask = createAsyncThunk(
   }
 );
 
-export const deleteTask = createAsyncThunk('tasks/deleteTask', async (id, { rejectWithValue }) => {
-  try {
-    await apiDeleteTask(id);
-    return id;
-  } catch (error) {
-    return rejectWithValue(error.response?.data || { message: 'Failed to delete task' });
+export const deleteTask = createAsyncThunk(
+  'tasks/deleteTask',
+  async (id, { rejectWithValue }) => {
+    try {
+      await apiDeleteTask(id);
+      return id;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || { message: 'Failed to delete task' });
+    }
   }
-});
+);
 
 export const assignTask = createAsyncThunk(
   'tasks/assignTask',
@@ -74,6 +81,7 @@ export const fetchDashboard = createAsyncThunk(
   }
 );
 
+// --- Slice ---
 const taskSlice = createSlice({
   name: 'tasks',
   initialState: {
@@ -84,9 +92,22 @@ const taskSlice = createSlice({
     loading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    // Optimistic updates
+    addTaskToStore: (state, action) => {
+      state.tasks.push(action.payload);
+    },
+    updateTaskInStore: (state, action) => {
+      const index = state.tasks.findIndex(t => t._id === action.payload._id);
+      if (index !== -1) state.tasks[index] = action.payload;
+    },
+    deleteTaskFromStore: (state, action) => {
+      state.tasks = state.tasks.filter(t => t._id !== action.payload);
+    },
+  },
   extraReducers: (builder) => {
     builder
+      // --- Fetch Tasks ---
       .addCase(fetchTasks.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -99,18 +120,22 @@ const taskSlice = createSlice({
         state.loading = false;
         state.error = action.payload.message;
       })
+
+      // --- Create Task ---
       .addCase(createTask.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(createTask.fulfilled, (state, action) => {
         state.loading = false;
-        state.tasks.push(action.payload);
+        state.tasks.push(action.payload); // still push for final confirmation
       })
       .addCase(createTask.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.message;
       })
+
+      // --- Update Task ---
       .addCase(updateTask.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -124,6 +149,8 @@ const taskSlice = createSlice({
         state.loading = false;
         state.error = action.payload.message;
       })
+
+      // --- Delete Task ---
       .addCase(deleteTask.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -136,6 +163,8 @@ const taskSlice = createSlice({
         state.loading = false;
         state.error = action.payload.message;
       })
+
+      // --- Assign Task ---
       .addCase(assignTask.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -149,6 +178,8 @@ const taskSlice = createSlice({
         state.loading = false;
         state.error = action.payload.message;
       })
+
+      // --- Fetch Dashboard ---
       .addCase(fetchDashboard.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -166,4 +197,5 @@ const taskSlice = createSlice({
   },
 });
 
+export const { addTaskToStore, updateTaskInStore, deleteTaskFromStore } = taskSlice.actions;
 export default taskSlice.reducer;

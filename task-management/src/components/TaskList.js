@@ -11,40 +11,40 @@ import {
 } from '@heroicons/react/24/outline';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Example StatusPill component
+// StatusPill component
 export function StatusPill({ status }) {
+  const normalized = (status || 'pending').toLowerCase();
+
   const statusColors = {
     pending: 'bg-yellow-100 text-yellow-800',
     completed: 'bg-green-100 text-green-800',
     overdue: 'bg-red-100 text-red-800',
   };
 
-  const colorClass = statusColors[status] || 'bg-gray-100 text-gray-800';
+  const colorClass = statusColors[normalized] || 'bg-gray-100 text-gray-800';
 
   return (
-    <span
-      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${colorClass}`}
-    >
-      {status.charAt(0).toUpperCase() + status.slice(1)}
+    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${colorClass}`}>
+      {normalized.charAt(0).toUpperCase() + normalized.slice(1)}
     </span>
   );
 }
 
-// Example PriorityBadge component
+// PriorityBadge component
 export function PriorityBadge({ priority }) {
+  const normalized = (priority || 'low').toLowerCase();
+
   const priorityColors = {
     low: 'bg-blue-100 text-blue-800',
     medium: 'bg-yellow-100 text-yellow-800',
     high: 'bg-red-100 text-red-800',
   };
 
-  const colorClass = priorityColors[priority] || 'bg-gray-100 text-gray-800';
+  const colorClass = priorityColors[normalized] || 'bg-gray-100 text-gray-800';
 
   return (
-    <span
-      className={`inline-flex items-center px-2 py-1 rounded text-xs font-semibold ${colorClass}`}
-    >
-      {priority.charAt(0).toUpperCase() + priority.slice(1)}
+    <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-semibold ${colorClass}`}>
+      {normalized.charAt(0).toUpperCase() + normalized.slice(1)}
     </span>
   );
 }
@@ -59,7 +59,6 @@ export default function TaskList(props) {
     priorityBadge,
   } = props;
 
-  // Use passed components or fallback to default examples
   const StatusPillComp = statusPill || StatusPill;
   const PriorityBadgeComp = priorityBadge || PriorityBadge;
 
@@ -97,6 +96,8 @@ export default function TaskList(props) {
   };
 
   const formatDate = (dateString) => {
+    if (!dateString) return 'No due date';
+
     const options = { 
       year: 'numeric', 
       month: 'short', 
@@ -104,6 +105,7 @@ export default function TaskList(props) {
       hour: '2-digit',
       minute: '2-digit'
     };
+
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
@@ -162,10 +164,11 @@ export default function TaskList(props) {
                   className="px-4 pb-4"
                 >
                   <div className="pt-2 border-t border-gray-100">
-                    <p className="text-gray-700 mb-4">{task.description || 'No description provided'}</p>
+                    <p className="text-gray-700 mb-4">
+                      {task.description || 'No description provided'}
+                    </p>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {/* Assign Task Section */}
                       <div className="space-y-2">
                         <label className="block text-sm font-medium text-gray-700">
                           Assign to team member
@@ -189,7 +192,7 @@ export default function TaskList(props) {
                           <button
                             onClick={() => handleAssign(task._id)}
                             disabled={!selectedUser[task._id]}
-                            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="inline-flex items-center px-3 py-2 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50"
                           >
                             <UserPlusIcon className="h-4 w-4 mr-1" />
                             Assign
@@ -197,18 +200,17 @@ export default function TaskList(props) {
                         </div>
                       </div>
 
-                      {/* Action Buttons */}
                       <div className="flex items-end space-x-2">
                         <button
                           onClick={() => onEdit(task)}
-                          className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                          className="inline-flex items-center px-3 py-2 border text-sm rounded-md"
                         >
                           <PencilSquareIcon className="h-4 w-4 mr-1" />
                           Edit
                         </button>
                         <button
                           onClick={() => onDelete(task._id)}
-                          className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                          className="inline-flex items-center px-3 py-2 text-sm rounded-md text-white bg-red-600"
                         >
                           <TrashIcon className="h-4 w-4 mr-1" />
                           Delete
